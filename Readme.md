@@ -82,21 +82,27 @@
 
 ```cpp
 ThreadPool pool(4);
+```
+
 Далее в пул отправляются 10 задач:
+```cpp
 for(int i = 0; i < 10; ++i) {
     pool.submit([i]{
         std::osyncstream(std::cout) << "task " << i << "\n";
     });
 }
-
+```
 Потом отправляются ещё две задачи с возвращаемым значением:
+```cpp
 auto f = pool.submit([]{
     return 42;
 });
 
 auto f2 = pool.submit(sum, 1, 3);
+```
 
 Результаты получаются через future:
+```cpp
 std::cout << f.get() << "\n";
 std::cout << f2.get() << "\n";
 ```
